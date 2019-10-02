@@ -1,12 +1,38 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from "react";
+import User from "./Components/User";
+import Followers from "./Components/Followers"
+import axios from "axios";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-     <h1>Hello World</h1>
-    </div>
-  );
+class App extends Component {
+  state = {
+    user: [],
+    followers: []
+  };
+
+  componentDidMount() {
+    axios.get("https://api.github.com/users/itava0")
+      .then(res => {
+        const data = [{ ...res.data }];
+        this.setState({
+          user: data
+        });
+      })
+      axios.get("https://api.github.com/users/itava0/followers").then(res => {
+        this.setState({
+          followers: res.data
+        });
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        <User user={this.state.user} />
+        <Followers followers={this.state.followers} />
+      </div>
+    );
+  }
 }
 
 export default App;

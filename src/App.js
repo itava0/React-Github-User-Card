@@ -27,7 +27,8 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
+        <h1 className="header">Github User</h1>
         <User user={this.state.user} />
         <Followers followers={this.state.followers} />
       </div>
